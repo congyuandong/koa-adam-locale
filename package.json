@@ -5,5 +5,11 @@
   "main": "index.js",
   "dependencies": {
     "debug": "~2.1.1"
-  }
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meikidd/koa-adam-locale"
+  },
+  "homepage": "https://github.com/meikidd/koa-adam-locale",
 }

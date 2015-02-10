@@ -1,4 +1,4 @@
-# koa-adam-locale
+-# koa-adam-locale
 
  Simple Multi Language Middleware for Koa.
 
@@ -82,9 +82,9 @@ Then you can set current language by request url like this '/set_locale?lang=en-
 
 ## Local Params
 The following three params are set to `this.locals`  
-### `this.locals._i18n_` {Object}
-### `this.locals._i18n_current_` {String}
-### `this.locals._i18n_supported_` {Array}
+- `this.locals._i18n_` {Object}
+- `this.locals._i18n_current_` {String}
+- `this.locals._i18n_supported_` {Array}
 
 
 ## License
