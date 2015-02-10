@@ -1,0 +1,9 @@
+{
+  "name": "koa-adam-locale",
+  "version": "0.1.0",
+  "description":"Simple Multi Language Middleware for Koa.",
+  "main": "index.js",
+  "dependencies": {
+    "debug": "~2.1.1"
+  }
+}
