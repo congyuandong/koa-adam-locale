@@ -86,6 +86,13 @@ The following three params are set to `this.locals`
 - `this.locals._i18n_current_` {String}
 - `this.locals._i18n_supported_` {Array}
 
+## Debug
+
+Set the `DEBUG` environment variable to `koa-adam-locale` when starting your server.
+
+```bash
+$ DEBUG=koa-adam-locale
+```
 
 ## License
 

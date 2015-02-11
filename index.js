@@ -29,10 +29,12 @@ module.exports = function(opts, app){
 
   debug('opts.path. path:'+opts.path);
   for(var i in opts.supported) {
-    var code = opts.supported[i].code;
-    debug('opts.supported. code:'+code);
-    var content = require(Path.resolve(opts.path, code)) || {};
-    kal.define(code, content);
+    if (opts.supported.hasOwnProperty(i)) {
+      var code = opts.supported[i].code;
+      debug('opts.supported. code:'+code);
+      var content = require(Path.resolve(opts.path, code)) || {};
+      kal.define(code, content);
+    }
   }
   app.kal = kal;
 
@@ -46,7 +48,7 @@ module.exports = function(opts, app){
       var lang = this.request.query.lang;
       this.session.kal_i18n_current = lang;
       debug('set session.kal_i18n_current:'+lang);
-      this.redirect('/');
+      this.redirect('back', '/');
     }else {
       this.locals._i18n_current_ = this.session.kal_i18n_current;
       debug('set locals._i18n_current_:'+this.locals._i18n_current_);

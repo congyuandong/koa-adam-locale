@@ -1,6 +1,6 @@
 {
   "name": "koa-adam-locale",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description":"Simple Multi Language Middleware for Koa.",
   "main": "index.js",
   "dependencies": {
@@ -11,5 +11,5 @@
     "type": "git",
     "url": "https://github.com/meikidd/koa-adam-locale"
   },
-  "homepage": "https://github.com/meikidd/koa-adam-locale",
+  "homepage": "https://github.com/meikidd/koa-adam-locale"
 }
