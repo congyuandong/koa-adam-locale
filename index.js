@@ -50,7 +50,7 @@ module.exports = function(opts, app){
       debug('set session.kal_i18n_current:'+lang);
       this.redirect('back', '/');
     }else {
-      this.locals._i18n_current_ = this.session.kal_i18n_current;
+      this.locals._i18n_current_ = this.session.kal_i18n_current || opts.default || 'en_US';
       debug('set locals._i18n_current_:'+this.locals._i18n_current_);
       this.app.kal.use(this.locals._i18n_current_);
       this.locals._i18n_ = this.app.kal.get();
