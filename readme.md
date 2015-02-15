@@ -69,6 +69,9 @@ app.use(KAL({
   supported: [{code:'en-us', lang:'English'},{code:'zh-cn', lang:'简体中文'}]
 }, app));
 ```
+### default {String}
+Default language
+
 ### set_url {String}
 The url to switch current language. default value: `/set_locale`
 #### Example:
