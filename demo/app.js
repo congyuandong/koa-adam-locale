@@ -1,6 +1,6 @@
 var Path = require('path');
 var View = require('koa-views')
-var KAL = require('koa-adam-locale');
+var KAL = require('../index');
 var Session = require('koa-session');
 var koa = require('koa');
 var app = koa();

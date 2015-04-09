@@ -71,6 +71,15 @@ app.use(KAL({
 ```
 ### default {String}
 Default language
+#### Example:
+```js
+app.use(KAL({
+  path: Path.resolve(__dirname, 'i18n'),
+  supported: [{code:'en-us', lang:'English'},{code:'zh-cn', lang:'简体中文'}]
+  default: 'en-us'
+}, app));
+
+```
 
 ### set_url {String}
 The url to switch current language. default value: `/set_locale`
