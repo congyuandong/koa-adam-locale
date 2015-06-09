@@ -10,7 +10,8 @@ app.use(Session(app));
 
 /* i18n */
 app.use(KAL({
-	path: Path.resolve(__dirname, 'i18n')
+	path: Path.resolve(__dirname, 'i18n'),
+  supported: [{code:'en-us', lang:'English'},{code:'zh-cn', lang:'简体中文'}]
 }, app));
 
 /* templating */

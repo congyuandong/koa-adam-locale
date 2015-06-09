@@ -11,7 +11,6 @@ require('./lib/adam/polyfill/Array');
 const Resolve = require('path').resolve;
 const debug = require('debug')('koa-adam-locale');
 const Locale = require('./lib/adam/locale/locale');
-const View = require('koa-views');
 
 const languageSupported = [{
   code:'en-us',
@@ -41,7 +40,8 @@ module.exports = function(opts, app){
   app.kal = kal;
 
   return function *(next) {
-    this.locals = this.locals || {};
+    var namespace = opts.namespace || 'locals';
+    this[namespace] = this[namespace] || {};
 
     if(this.path == opts.set_url) {
       var lang = this.request.query.lang;
@@ -49,11 +49,11 @@ module.exports = function(opts, app){
       debug('set session.kal_i18n_current:'+lang);
       this.redirect('back', '/');
     }else {
-      this.locals._i18n_current_ = this.session.kal_i18n_current || opts.default;
-      debug('set locals._i18n_current_:'+this.locals._i18n_current_);
-      this.app.kal.use(this.locals._i18n_current_);
-      this.locals._i18n_ = this.app.kal.get();
-      this.locals._i18n_supported_ = opts.supported;
+      this[namespace]._i18n_current_ = this.session.kal_i18n_current || opts.default;
+      debug('set _i18n_current_:'+this[namespace]._i18n_current_);
+      this.app.kal.use(this[namespace]._i18n_current_);
+      this[namespace]._i18n_ = this.app.kal.get();
+      this[namespace]._i18n_supported_ = opts.supported;
       yield next;
     }
   }
