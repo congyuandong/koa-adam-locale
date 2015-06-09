@@ -10,6 +10,7 @@ $ npm install koa-adam-locale
 
 ## Example
 app.js:
+
 ```js
 var Path = require('path');
 var View = require('koa-views')
@@ -46,6 +47,7 @@ i18n/en-us.json
 }
 ```
 views/locale.ejs
+
 ```html
 <p><%= _i18n_.hello %>, <%= _i18n_.world %>.</p>
 <p>current:<%= _i18n_current_ %>.</p>
@@ -69,13 +71,29 @@ app.use(KAL({
   supported: [{code:'en-us', lang:'English'},{code:'zh-cn', lang:'简体中文'}]
 }, app));
 ```
+### namespace {String}
+Custom template data params namespace. Default value is 'locals'  
+
+* koa-views 2.x - ctx.locals
+* koa-views 3.x - ctx.state
+
+#### Example: 
+```js
+// for koa-views 3.x
+app.use(KAL({
+  path: Path.resolve(__dirname, 'i18n'),
+  supported: [{code:'en-us', lang:'English'},{code:'zh-cn', lang:'简体中文'}],
+  namespace: 'state'
+}, app));
+```
+
 ### default {String}
 Default language
 #### Example:
 ```js
 app.use(KAL({
   path: Path.resolve(__dirname, 'i18n'),
-  supported: [{code:'en-us', lang:'English'},{code:'zh-cn', lang:'简体中文'}]
+  supported: [{code:'en-us', lang:'English'},{code:'zh-cn', lang:'简体中文'}],
   default: 'en-us'
 }, app));
 
