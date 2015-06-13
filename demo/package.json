@@ -6,7 +6,6 @@
   "dependencies": {
     "ejs": "~2.3.1",
     "koa": "~0.14.0",
-    "koa-session": "~3.1.0",
     "koa-views": "~2.1.0"
   },
   "license": "MIT",

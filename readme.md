@@ -71,6 +71,9 @@ app.use(KAL({
   supported: [{code:'en-us', lang:'English'},{code:'zh-cn', lang:'简体中文'}]
 }, app));
 ```
+
+
+
 ### namespace {String}
 Custom template data params namespace. Default value is 'locals'  
 
@@ -87,6 +90,24 @@ app.use(KAL({
 }, app));
 ```
 
+
+
+### cookies {Object}
+Store the selected language in the cookie. see [koa cookie](http://koajs.com/#ctx-cookies-set-name-value-options-) for more information.
+#### Example: 
+```js
+app.use(KAL({
+  path: Path.resolve(__dirname, 'i18n'),
+  cookies: {
+    domain: 'hello.com',
+    expires: new Date(Date.now() + 365*24*60*60*1000)
+  }
+}, app));
+```
+
+
+
+
 ### default {String}
 Default language
 #### Example:
@@ -98,6 +119,8 @@ app.use(KAL({
 }, app));
 
 ```
+
+
 
 ### set_url {String}
 The url to switch current language. default value: `/set_locale`
@@ -112,8 +135,10 @@ app.use(KAL({
 Then you can set current language by request url like this '/set_locale?lang=en-us'
 
 
+
+
 ## Local Params
-The following three params are set to `this.locals`  
+The following three params are set to ctx.namespace, default `ctx.locals`. For koa-views 3.x version, you can set namespace to `ctx.state`
 - `this.locals._i18n_` {Object}
 - `this.locals._i18n_current_` {String}
 - `this.locals._i18n_supported_` {Array}

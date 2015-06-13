@@ -29,6 +29,7 @@ module.exports = function(opts, app){
   opts.supported = opts.supported || languageSupported;
   opts.set_url = opts.set_url || '/set_locale';
   opts.default = opts.default || opts.supported[0].code;
+  opts.cookies = opts.cookies || {};
 
   debug('opts.path. path:'+opts.path);
   opts.supported.forEach(function(l) {
@@ -37,7 +38,11 @@ module.exports = function(opts, app){
     var content = require(Resolve(opts.path, code)) || {};
     kal.define(code, content);
   });
+
   app.kal = kal;
+
+  if(!app.keys) app.keys = ['koa-adam-locale'];
+
 
   return function *(next) {
     var namespace = opts.namespace || 'locals';
@@ -45,12 +50,12 @@ module.exports = function(opts, app){
 
     if(this.path == opts.set_url) {
       var lang = this.request.query.lang;
-      this.session.kal_i18n_current = lang;
-      debug('set session.kal_i18n_current:'+lang);
+      this.cookies.set('kal_i18n_current', lang, opts.cookies);
+      debug('set cookie kal_i18n_current: %s', lang);
       this.redirect('back', '/');
     }else {
-      this[namespace]._i18n_current_ = this.session.kal_i18n_current || opts.default;
-      debug('set _i18n_current_:'+this[namespace]._i18n_current_);
+      this[namespace]._i18n_current_ = this.cookies.get('kal_i18n_current', opts.cookies) || opts.default;
+      debug('set _i18n_current_: %s', this[namespace]._i18n_current_);
       this.app.kal.use(this[namespace]._i18n_current_);
       this[namespace]._i18n_ = this.app.kal.get();
       this[namespace]._i18n_supported_ = opts.supported;
