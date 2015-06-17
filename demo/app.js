@@ -9,7 +9,7 @@ app.keys = ['some secret'];
 /* i18n */
 app.use(KAL({
 	path: Path.resolve(__dirname, 'i18n'),
-  cookieKey: 'my_current_lang',
+  cookieKey: 'current_lang',
   cookies: {
     maxAge: 365*24*60*60*1000
   },
