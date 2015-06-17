@@ -29,13 +29,19 @@ module.exports = function(opts, app){
   opts.supported = opts.supported || languageSupported;
   opts.set_url = opts.set_url || '/set_locale';
   opts.default = opts.default || opts.supported[0].code;
-  opts.cookies = opts.cookies || {};
+  opts.cookies = opts.cookies || {maxAge: 24*60*60*1000};
+  opts.cookieKey = opts.cookieKey || 'i18n_current';
 
   debug('opts.path. path:'+opts.path);
   opts.supported.forEach(function(l) {
     var code = l.code;
-    debug('opts.supported. code:'+code);
-    var content = require(Resolve(opts.path, code)) || {};
+    debug('opts.supported. code: %s, language: %s.', l.code, l.lang);
+    var content = {};
+    try {
+      content = require(Resolve(opts.path, code));
+    } catch(e) {
+      debug(e);
+    }
     kal.define(code, content);
   });
 
@@ -43,22 +49,22 @@ module.exports = function(opts, app){
 
   if(!app.keys) app.keys = ['koa-adam-locale'];
 
-
   return function *(next) {
+    debug('path:', this.path);
     var namespace = opts.namespace || 'locals';
     this[namespace] = this[namespace] || {};
 
     if(this.path == opts.set_url) {
       var lang = this.request.query.lang;
-      this.cookies.set('kal_i18n_current', lang, opts.cookies);
-      debug('set cookie kal_i18n_current: %s', lang);
+      this.cookies.set(opts.cookieKey, lang, opts.cookies);
+      debug('set cookie %s: %s', opts.cookieKey, lang);
       if(this.get('X-Requested-With') === 'XMLHttpRequest') {
         this.body = {result:'ok', current:lang};
       } else {
         this.redirect('back', '/');
       }
     }else {
-      this[namespace]._i18n_current_ = this.cookies.get('kal_i18n_current', opts.cookies) || opts.default;
+      this[namespace]._i18n_current_ = this.cookies.get(opts.cookieKey, opts.cookies) || opts.default;
       debug('set _i18n_current_: %s', this[namespace]._i18n_current_);
       this.app.kal.use(this[namespace]._i18n_current_);
       this[namespace]._i18n_ = this.app.kal.get();
