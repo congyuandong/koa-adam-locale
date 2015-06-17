@@ -100,7 +100,7 @@ app.use(KAL({
   path: Path.resolve(__dirname, 'i18n'),
   cookies: {
     domain: 'hello.com',
-    expires: new Date(Date.now() + 365*24*60*60*1000)
+    maxAge: 365*24*60*60*1000
   }
 }, app));
 ```
