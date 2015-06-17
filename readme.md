@@ -90,7 +90,7 @@ app.use(KAL({
 }, app));
 ```
 
-### cookieKey
+### cookieKey {String}
 
 
 ### cookies {Object}
