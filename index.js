@@ -13,7 +13,7 @@ const debug = require('debug')('koa-adam-locale');
 const Locale = require('./lib/adam/locale/locale');
 
 const languageSupported = [{
-  code:'en-us',
+  code:'en_US',
   lang:'English'
 }];
 
@@ -52,7 +52,11 @@ module.exports = function(opts, app){
       var lang = this.request.query.lang;
       this.cookies.set('kal_i18n_current', lang, opts.cookies);
       debug('set cookie kal_i18n_current: %s', lang);
-      this.redirect('back', '/');
+      if(this.get('X-Requested-With') === 'XMLHttpRequest') {
+        this.body = {result:'ok', current:lang};
+      } else {
+        this.redirect('back', '/');
+      }
     }else {
       this[namespace]._i18n_current_ = this.cookies.get('kal_i18n_current', opts.cookies) || opts.default;
       debug('set _i18n_current_: %s', this[namespace]._i18n_current_);
