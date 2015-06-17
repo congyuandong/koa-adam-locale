@@ -39,7 +39,7 @@ app.use(function * () {
 
 app.listen(process.argv[2])
 ```
-i18n/en-us.json
+i18n/en_US.json
 ```json
 {
 	"hello": "hello",
@@ -63,12 +63,12 @@ views/locale.ejs
 ### path {String}
 The folder path of i18n files
 ### supported {Array}
-The supported languages. default value: `[{code:'en-us', lang:'English'},{code:'zh-cn', lang:'简体中文'}]`
+The supported languages. default value: `[{code:'en_US', lang:'English'},{code:'zh_CN', lang:'简体中文'}]`
 #### Example:
 ```js
 app.use(KAL({
   path: Path.resolve(__dirname, 'i18n'),
-  supported: [{code:'en-us', lang:'English'},{code:'zh-cn', lang:'简体中文'}]
+  supported: [{code:'en_US', lang:'English'},{code:'zh_CN', lang:'简体中文'}]
 }, app));
 ```
 
@@ -85,7 +85,7 @@ Custom template data params namespace. Default value is 'locals'
 // for koa-views 3.x
 app.use(KAL({
   path: Path.resolve(__dirname, 'i18n'),
-  supported: [{code:'en-us', lang:'English'},{code:'zh-cn', lang:'简体中文'}],
+  supported: [{code:'en_US', lang:'English'},{code:'zh_CN', lang:'简体中文'}],
   namespace: 'state'
 }, app));
 ```
@@ -101,7 +101,7 @@ app.use(KAL({
   path: Path.resolve(__dirname, 'i18n'),
   cookies: {
     domain: 'hello.com',
-    expires: new Date(Date.now() + 365*24*60*60*1000)
+    maxAge: 365*24*60*60*1000
   }
 }, app));
 ```
@@ -115,8 +115,8 @@ Default language
 ```js
 app.use(KAL({
   path: Path.resolve(__dirname, 'i18n'),
-  supported: [{code:'en-us', lang:'English'},{code:'zh-cn', lang:'简体中文'}],
-  default: 'en-us'
+  supported: [{code:'en_US', lang:'English'},{code:'zh_CN', lang:'简体中文'}],
+  default: 'en_US'
 }, app));
 
 ```
@@ -133,7 +133,7 @@ app.use(KAL({
 }, app));
 
 ```
-Then you can set current language by request url like this '/set_locale?lang=en-us'
+Then you can set current language by request url like this '/set_locale?lang=en_US'
 
 
 

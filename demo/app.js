@@ -9,10 +9,12 @@ app.keys = ['some secret'];
 /* i18n */
 app.use(KAL({
 	path: Path.resolve(__dirname, 'i18n'),
+  cookieKey: 'current_lang',
   cookies: {
-    expires: new Date(Date.now() + 365*24*60*60*1000)
+    maxAge: 365*24*60*60*1000
   },
-  supported: [{code:'en-us', lang:'English'},{code:'zh-cn', lang:'简体中文'}]
+  default: 'en_US',
+  supported: [{code:'en_US', lang:'English'},{code:'zh_CN', lang:'简体中文'}]
 }, app));
 
 /* templating */
