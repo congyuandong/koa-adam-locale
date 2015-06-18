@@ -25,7 +25,7 @@ app.use(KAL({
   cookies: {
     maxAge: 365*24*60*60*1000,
     domain: 'hello.com',
-    sigined: false
+    signed: false
   },
   default: 'en_US',
   supported: [{code:'en_US', lang:'English'},{code:'zh_CN', lang:'简体中文'}]
