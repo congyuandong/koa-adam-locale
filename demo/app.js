@@ -4,8 +4,6 @@ var KAL = require('../index');
 var koa = require('koa');
 var app = koa();
 
-app.keys = ['some secret'];
-
 /* i18n */
 app.use(KAL({
 	path: Path.resolve(__dirname, 'i18n'),

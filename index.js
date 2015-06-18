@@ -47,7 +47,10 @@ module.exports = function(opts, app){
 
   app.kal = kal;
 
-  if(!app.keys) app.keys = ['koa-adam-locale'];
+  if(opts.cookies.signed) {
+    app.keys = app.keys || [];
+    app.keys.push('koa-adam-locale');
+  }
 
   return function *(next) {
     debug('path:', this.path);

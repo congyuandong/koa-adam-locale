@@ -24,7 +24,14 @@ app.use(Session(app));
 
 /* i18n */
 app.use(KAL({
-	path: Path.resolve(__dirname, 'i18n')
+  path: Path.resolve(__dirname, 'i18n'),
+  cookieKey: 'current_lang',
+  cookies: {
+    maxAge: 365*24*60*60*1000,
+    domain: 'hello.com'
+  },
+  default: 'en_US',
+  supported: [{code:'en_US', lang:'English'},{code:'zh_CN', lang:'简体中文'}]
 }, app));
 
 /* templating */
