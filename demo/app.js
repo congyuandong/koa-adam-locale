@@ -9,7 +9,8 @@ app.use(KAL({
 	path: Path.resolve(__dirname, 'i18n'),
   cookieKey: 'current_lang',
   cookies: {
-    maxAge: 365*24*60*60*1000
+    maxAge: 365*24*60*60*1000,
+    signed: false
   },
   default: 'en_US',
   supported: [{code:'en_US', lang:'English'},{code:'zh_CN', lang:'简体中文'}]
