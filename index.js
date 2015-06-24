@@ -40,7 +40,7 @@ module.exports = function(opts, app){
     try {
       content = require(Resolve(opts.path, code));
     } catch(e) {
-      debug(e);
+      console.error(e.stack);
     }
     kal.define(code, content);
   });
@@ -69,7 +69,12 @@ module.exports = function(opts, app){
     }else {
       this[namespace]._i18n_current_ = this.cookies.get(opts.cookieKey, opts.cookies) || opts.default;
       debug('set _i18n_current_: %s', this[namespace]._i18n_current_);
-      this.app.kal.use(this[namespace]._i18n_current_);
+      try {
+        this.app.kal.use(this[namespace]._i18n_current_);
+      } catch(e) {
+        console.log(e.stack);
+        this.app.kal.use(opts.default);
+      }
       this[namespace]._i18n_ = this.app.kal.get();
       this[namespace]._i18n_supported_ = opts.supported;
       yield next;
