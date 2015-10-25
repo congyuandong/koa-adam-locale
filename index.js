@@ -7,10 +7,8 @@
 
 'use strict';
 
-require('./lib/adam/polyfill/Array');
 const Resolve = require('path').resolve;
 const debug = require('debug')('koa-adam-locale');
-const Locale = require('./lib/adam/locale/locale');
 
 const languageSupported = [{
   code:'en_US',
@@ -19,7 +17,9 @@ const languageSupported = [{
 
 module.exports = function(opts, app){
 
-  var kal = Locale('koa-adam-locale');
+  var _i18n_packages_ = {};
+  var _i18n_current_ = opts.supported[0].code;
+
   if (opts && typeof opts.use === 'function') {
     var tmp = app;
     app = opts;
@@ -42,10 +42,8 @@ module.exports = function(opts, app){
     } catch(e) {
       console.error(e.stack);
     }
-    kal.define(code, content);
+    _i18n_packages_[code] = content;
   });
-
-  app.kal = kal;
 
   if(opts.cookies.signed) {
     app.keys = app.keys || [];
@@ -70,12 +68,12 @@ module.exports = function(opts, app){
       this[namespace]._i18n_current_ = this.cookies.get(opts.cookieKey, opts.cookies) || opts.default;
       debug('set _i18n_current_: %s', this[namespace]._i18n_current_);
       try {
-        this.app.kal.use(this[namespace]._i18n_current_);
+        _i18n_current_ = this[namespace]._i18n_current_;
       } catch(e) {
         console.log(e.stack);
-        this.app.kal.use(opts.default);
+        _i18n_current_ = opts.default;
       }
-      this[namespace]._i18n_ = this.app.kal.get();
+      this[namespace]._i18n_ = _i18n_packages_[_i18n_current_];
       this[namespace]._i18n_supported_ = opts.supported;
       yield next;
     }
