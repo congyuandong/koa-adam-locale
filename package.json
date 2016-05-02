@@ -1,15 +1,23 @@
 {
   "name": "koa-adam-locale",
   "version": "2.0.0",
-  "description":"Simple Multi Language Middleware for Koa.",
+  "description": "Simple Multi Language Middleware for Koa.",
   "main": "index.js",
   "dependencies": {
     "debug": "~2.1.1"
+  },
+  "scripts": {
+    "demo": "node ./demo/app 7001"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/meikidd/koa-adam-locale"
   },
-  "homepage": "https://github.com/meikidd/koa-adam-locale"
+  "homepage": "https://github.com/meikidd/koa-adam-locale",
+  "devDependencies": {
+    "ejs": "~2.3.1",
+    "koa": "~0.14.0",
+    "koa-views": "~2.1.0"
+  }
 }
