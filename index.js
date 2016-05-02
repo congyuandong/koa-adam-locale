@@ -9,6 +9,9 @@
 
 const Resolve = require('path').resolve;
 const debug = require('debug')('koa-adam-locale');
+const commonEn = require('./common/en_US');
+const commonZh = require('./common/zh_CN');
+
 
 const languageSupported = [{
   code:'en_US',
@@ -39,6 +42,12 @@ module.exports = function(opts, app){
     var content = {};
     try {
       content = require(Resolve(opts.path, code));
+
+      if(code == 'en_US') {
+        content = Object.assign(content, commonEn);
+      } else if(code == 'zh_CN') {
+        content = Object.assign(content, commonZh);
+      }
     } catch(e) {
       console.error(e.stack);
     }
