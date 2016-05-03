@@ -3,3 +3,8 @@
 <% for(var i in _i18n_supported_) { %>
 <a href='/set_locale?lang=<%= _i18n_supported_[i].code %>'>switch to <%= _i18n_supported_[i].lang %></a> 
 <% } %>
+
+<hr>
+
+<p><%=_language_name_(_i18n_current_) %></p>
+<p><%=_language_name_('ru-RU') %></p>

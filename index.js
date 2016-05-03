@@ -8,6 +8,7 @@
 'use strict';
 
 const Resolve = require('path').resolve;
+const LocaleCode = require('locale-code');
 const debug = require('debug')('koa-adam-locale');
 const commonEn = require('./common/en_US');
 const commonZh = require('./common/zh_CN');
@@ -59,6 +60,19 @@ module.exports = function(opts, app){
     app.keys.push('koa-adam-locale');
   }
 
+  var getLanguageName = function(code) {
+    code = code.replace('_', '-');
+    var current = _i18n_current_.replace('_', '-');
+
+    if(LocaleCode.getLanguageCode(current) == 'en') {
+      return LocaleCode.getLanguageName(code);
+    } else if(LocaleCode.getLanguageCode(current) == 'zh') {
+      return LocaleCode.getLanguageZhName(code);
+    } else {
+      return LocaleCode.getLanguageNativeName(code);
+    }
+  }
+
   return function *(next) {
     debug('path:', this.path);
     var namespace = opts.namespace || 'locals';
@@ -84,6 +98,7 @@ module.exports = function(opts, app){
       }
       this[namespace]._i18n_ = _i18n_packages_[_i18n_current_];
       this[namespace]._i18n_supported_ = opts.supported;
+      this[namespace]._language_name_ = getLanguageName;
       yield next;
     }
   }
