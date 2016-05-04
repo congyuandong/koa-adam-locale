@@ -157,9 +157,9 @@ KAL.addLanguageHelper(dust)
 在模板里使用@language
 
 ```
-{@language code="ru_RU" current="zh_CN"} // 输出"俄语"
+{@language code="ru_RU" current="zh_CN" /} // 输出"俄语"
 
-{@language code="ru_RU" current="en_US"} // 输出"Russian"
+{@language code="ru_RU" current="en_US" /} // 输出"Russian"
 ```
 
 ## Debug
