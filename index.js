@@ -22,6 +22,10 @@ const getLanguageName = function(code, current) {
   code = code.replace('_', '-');
   current = current.replace('_', '-');
 
+  // 兼容代码
+  if(code == 'in-ID') code = 'id-ID';
+  if(code == 'ar-MA') code = 'ar-SA';
+
   if(LocaleCode.getLanguageCode(current) == 'en') {
     return LocaleCode.getLanguageName(code);
   } else if(LocaleCode.getLanguageCode(current) == 'zh') {
