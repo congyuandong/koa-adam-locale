@@ -140,13 +140,27 @@ app.use(KAL({
 Then you can set current language by request url like this '/set_locale?lang=en_US'
 
 
-
-
 ## Local Params
 The following three params are set to ctx.namespace, default `ctx.locals`. For koa-views 3.x version, you can set namespace to `ctx.state`
 - `this.locals._i18n_` {Object}
 - `this.locals._i18n_current_` {String}
 - `this.locals._i18n_supported_` {Array}
+
+## static addLanguageHelper
+添加dust模板的helper，用于展示语言名称
+
+```
+var dust = require('dustjs-helpers');
+KAL.addLanguageHelper(dust)
+```
+
+在模板里使用@language
+
+```
+{@language code="ru_RU" current="zh_CN"} // 输出"俄语"
+
+{@language code="ru_RU" current="en_US"} // 输出"Russian"
+```
 
 ## Debug
 
