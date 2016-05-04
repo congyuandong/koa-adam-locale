@@ -13,7 +13,6 @@ const debug = require('debug')('koa-adam-locale');
 const commonEn = require('./common/en_US');
 const commonZh = require('./common/zh_CN');
 
-
 const languageSupported = [{
   code:'en_US',
   lang:'English'
@@ -93,7 +92,7 @@ module.exports = function(opts, app){
       try {
         _i18n_current_ = this[namespace]._i18n_current_;
       } catch(e) {
-        console.log(e.stack);
+        console.error(e.stack);
         _i18n_current_ = opts.default;
       }
       this[namespace]._i18n_ = _i18n_packages_[_i18n_current_];
@@ -101,5 +100,24 @@ module.exports = function(opts, app){
       this[namespace]._language_name_ = getLanguageName;
       yield next;
     }
+  }
+}
+
+// 添加 helper
+module.exports.addLanguageHelper = function(dust) {
+  dust.helpers.language = function (chunk, ctx, bodies, params) {
+    var code = params.code.replace('_', '-');
+    var current = LocaleCode.getLanguageCode((params.current || 'zh-CN').replace('_', '-'));
+    var languageName = '';
+
+    if(current == 'en') {
+      languageName = LocaleCode.getLanguageName(code);
+    } else if(current == 'zh') {
+      languageName = LocaleCode.getLanguageZhName(code);
+    } else {
+      languageName = LocaleCode.getLanguageNativeName(code);
+    }
+
+    return chunk.write(languageName);
   }
 }
