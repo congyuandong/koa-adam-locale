@@ -18,6 +18,19 @@ const languageSupported = [{
   lang:'English'
 }];
 
+const getLanguageName = function(code, current) {
+  code = code.replace('_', '-');
+  current = current.replace('_', '-');
+
+  if(LocaleCode.getLanguageCode(current) == 'en') {
+    return LocaleCode.getLanguageName(code);
+  } else if(LocaleCode.getLanguageCode(current) == 'zh') {
+    return LocaleCode.getLanguageZhName(code);
+  } else {
+    return LocaleCode.getLanguageNativeName(code);
+  }
+}
+
 module.exports = function(opts, app){
 
   var _i18n_packages_ = {};
@@ -59,18 +72,8 @@ module.exports = function(opts, app){
     app.keys.push('koa-adam-locale');
   }
 
-  var getLanguageName = function(code) {
-    code = code.replace('_', '-');
-    var current = _i18n_current_.replace('_', '-');
 
-    if(LocaleCode.getLanguageCode(current) == 'en') {
-      return LocaleCode.getLanguageName(code);
-    } else if(LocaleCode.getLanguageCode(current) == 'zh') {
-      return LocaleCode.getLanguageZhName(code);
-    } else {
-      return LocaleCode.getLanguageNativeName(code);
-    }
-  }
+
 
   return function *(next) {
     debug('path:', this.path);
@@ -97,7 +100,9 @@ module.exports = function(opts, app){
       }
       this[namespace]._i18n_ = _i18n_packages_[_i18n_current_];
       this[namespace]._i18n_supported_ = opts.supported;
-      this[namespace]._language_name_ = getLanguageName;
+      this[namespace]._language_ = function(code) {
+        return getLanguageName(code, _i18n_current_);
+      };
       yield next;
     }
   }
@@ -106,18 +111,9 @@ module.exports = function(opts, app){
 // 添加 helper
 module.exports.addLanguageHelper = function(dust) {
   dust.helpers.language = function (chunk, ctx, bodies, params) {
-    var code = params.code.replace('_', '-');
-    var current = LocaleCode.getLanguageCode((params.current || 'zh-CN').replace('_', '-'));
-    var languageName = '';
-
-    if(current == 'en') {
-      languageName = LocaleCode.getLanguageName(code);
-    } else if(current == 'zh') {
-      languageName = LocaleCode.getLanguageZhName(code);
-    } else {
-      languageName = LocaleCode.getLanguageNativeName(code);
-    }
-
+    var code = params.code || '';
+    var current = params.current || 'zh-CN';
+    var languageName = getLanguageName(code, current);
     return chunk.write(languageName);
   }
 }
