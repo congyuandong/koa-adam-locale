@@ -160,6 +160,8 @@ KAL.addLanguageHelper(dust)
 {@language code="ru_RU" current="zh_CN" /} // 输出"俄语"
 
 {@language code="ru_RU" current="en_US" /} // 输出"Russian"
+
+{@language code="ru_RU" /} // 根据系统设置的自动判断语言
 ```
 
 ## Debug
