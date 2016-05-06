@@ -116,7 +116,7 @@ module.exports = function(opts, app){
 module.exports.addLanguageHelper = function(dust) {
   dust.helpers.language = function (chunk, ctx, bodies, params) {
     var code = params.code || '';
-    var current = ctx.stack.head._i18n_current_ || 'zh-CN';
+    var current = params.current || ctx.stack.head._i18n_current_ || 'zh-CN';
     current = current.replace('_', '-');
     var languageName = getLanguageName(code, current);
     return chunk.write(languageName);
