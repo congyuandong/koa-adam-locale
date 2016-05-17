@@ -36,7 +36,7 @@ const getLanguageName = function(code, current) {
     if(LocaleCode.getLanguageCode(current) == 'en') {
       return 'Traditional Chinese';
     } else {
-      return '繁體中文';
+      return '繁体中文';
     }
   }
 
