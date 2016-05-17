@@ -25,6 +25,20 @@ const getLanguageName = function(code, current) {
   // 兼容代码
   if(code == 'in-ID') code = 'id-ID';
   if(code == 'ar-MA') code = 'ar-SA';
+  if(code == 'zh-CN') {
+    if(LocaleCode.getLanguageCode(current) == 'en') {
+      return 'Simpiled Chinese';
+    } else {
+      return '简体中文';
+    }
+  }
+  if(code == 'zh-TW') {
+    if(LocaleCode.getLanguageCode(current) == 'en') {
+      return 'Traditional Chinese';
+    } else {
+      return '繁體中文';
+    }
+  }
 
   if(LocaleCode.getLanguageCode(current) == 'en') {
     return LocaleCode.getLanguageName(code);
