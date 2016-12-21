@@ -6,7 +6,8 @@ var app = koa();
 
 /* i18n */
 app.use(KAL({
-	path: Path.resolve(__dirname, 'i18n'),
+  path: Path.resolve(__dirname, 'i18n'),
+  // reference: require('./i18n_ref'),
   cookieKey: 'current_lang',
   cookies: {
     maxAge: 365*24*60*60*1000,
