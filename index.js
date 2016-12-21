@@ -72,7 +72,7 @@ module.exports = function(opts, app){
     debug('opts.supported. code: %s, language: %s.', l.code, l.lang);
     var content = {};
     try {
-      content = require(Resolve(opts.path, code));
+      content = (opts.reference && opts.reference[code]) || require(Resolve(opts.path, code));
 
       if(code == 'en_US') {
         content = Object.assign(content, commonEn);
